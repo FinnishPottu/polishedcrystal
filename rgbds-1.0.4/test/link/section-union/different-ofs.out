@@ -1,0 +1,8 @@
+FATAL: Section "conflicting alignment" is defined with 8-byte alignment (offset 7), but also with 8-byte alignment (offset 6)
+    at section-union/different-ofs.asm(7)
+    and also:
+    at section-union/different-ofs.asm(7)
+Linking aborted with 1 error
+---
+FATAL: Section "conflicting alignment" already declared with incompatible 8-byte alignment (offset 7)
+    at <stdin>(18)

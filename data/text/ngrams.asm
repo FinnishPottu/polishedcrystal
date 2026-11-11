@@ -11,5 +11,5 @@ NgramStrings:
 .Player:  dw wPlayerName
 .Rival:   dw wRivalName
 .Trendy:  dw wTrendyPhrase
-.Poke:    rawchar "Poké@"
+.Poke:    rawchar "POKé@"
 .Pokemon: rawchar "Pokémon@"

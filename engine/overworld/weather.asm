@@ -192,7 +192,7 @@ DoOverworldSnow:
 	jr z, .continue
 	farcall LoadWeatherPal
 .continue
-rept 2
+rept 6
 	; spawn two snowflakes
 	call ScanForEmptyOAM
 	call nc, SpawnSnowFlake
@@ -253,7 +253,7 @@ DoSnowFall:
 	add c
 
 	; minimum fall speed is 2
-	add 2
+	add 8
 
 	; if the sprite goes offscreen, despawn it, otherwise update its y coord
 	ld hl, OAMA_Y
@@ -313,7 +313,7 @@ DoSnowFall:
 SpawnSnowFlake:
 	; 40% chance of spawning a snowflake.
 	call Random
-	cp 40 percent
+	cp 80 percent
 	ret nc
 	; 25% chance of spawning a snowflake on the right side of the screen.
 	call Random

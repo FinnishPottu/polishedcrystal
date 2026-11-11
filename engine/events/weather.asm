@@ -66,6 +66,8 @@ SetCurrentWeather::
 	jr nz, .not_snowing
 	ld a, [wMapNumber]
 	cp MAP_SILVER_CAVE_ROOM_3
+	jr z, .snowing
+	cp MAP_SILVER_CAVE_ROOM_2
 	jr nz, .not_snowing
 	jr .snowing
 .snowtop_mountain
@@ -89,7 +91,7 @@ SetCurrentWeather::
 	jr nz, .no_sandstorm
 .sandstorm
 	ld a, OW_WEATHER_SANDSTORM
-	jr .set_weather
+	jmp .set_weather
 
 .no_sandstorm
 	ld a, [wMapGroup]

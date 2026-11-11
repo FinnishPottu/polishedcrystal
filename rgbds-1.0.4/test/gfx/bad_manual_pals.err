@@ -1,0 +1,5 @@
+error: Failed to fit tile colors [GB:10,04,27; GB:21,26,31; GB:31,31,31] in specified palettes
+note: The following palettes were specified:
+      - [GB:31,31,31; GB:21,26,31]
+      - [GB:31,31,31; GB:10,04,27]
+Conversion aborted after 1 error

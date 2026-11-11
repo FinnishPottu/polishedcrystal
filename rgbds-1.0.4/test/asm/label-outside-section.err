@@ -1,0 +1,3 @@
+error: Cannot define label `bad` outside of a `SECTION`
+    at label-outside-section.asm(1)
+Assembly aborted with 1 error

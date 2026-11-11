@@ -82,18 +82,113 @@ _NewGame_FinishSetup:
 	ld [wOvercastRandomDay], a
 	call NewGame_ClearTileMapEtc
 	call WarnVBA
-	farcall SetInitialOptions
-	call ProfElmSpeech
+	
+	; 1. Pakotetaan pelaajan nimeksi BLAKE
+	ld hl, .BlakeName
+	ld de, wPlayerName
+	ld bc, NAME_LENGTH
+	call CopyBytes
+	;--- Alustetaan pokemonit
+	call .GiveSilentTeam
+	
+	; --- UUSI ALUSTUSBLOKKI: AIKA, SALIMERKIT JA RAHAT ---
+	; Asetetaan peliajaksi 999 tuntia ja 59 minuuttia
+	ld a, 999 & $ff ; Tuntien alempi tavu
+	ld [wGameTimeHours + 1], a
+	ld a, 999 >> 8  ; Tuntien ylempi tavu
+	ld [wGameTimeHours], a
+	ld a, 59        ; Minuutit
+	ld [wGameTimeMinutes], a
+	xor a
+	ld [wGameTimeSeconds], a
+	ld [wGameTimeFrames], a
+
+	; Annetaan kaikki 16 salimerkkiä (8 Johto + 8 Kanto)
+	; %11111111 ($ff) aktivoi kaikki kahdeksan merkkiä kerralla
+	ld a, $ff
+	ld [wJohtoBadges], a
+	ld [wKantoBadges], a
+	; Annetaan rahat
+	ld a, HIGH(MAX_MONEY >> 8)
+	ld [wMoney], a
+	ld a, HIGH(MAX_MONEY) ; mid
+	ld [wMoney + 1], a
+	ld a, LOW(MAX_MONEY)
+	ld [wMoney + 2], a
+
+; --- 4. Pokédex käyttöön ja kaikki 251 Pokémonia kerätyksi ---
+	ld de, ENGINE_POKEDEX
+	ld b, SET_FLAG
+	farcall EngineFlagAction
+
+	ld de, ENGINE_POKEGEAR
+	ld b, SET_FLAG
+	farcall EngineFlagAction
+
+	ld hl, wPokedexCaught
+	ld bc, 31
+	ld a, $ff
+	call ByteFill
+	ld [hl], $07 ; Loput 3 Pokémonia (249–251)
+
+	ld hl, wPokedexSeen
+	ld bc, 31
+	ld a, $ff
+	call ByteFill
+	ld [hl], $07
+
+	
+	;farcall SetInitialOptions
+	;call ProfElmSpeech
 	call InitializeWorld
 	ld a, 1
 	ld [wPrevLandmark], a
 
-	ld a, SPAWN_HOME
+	; Pakotetaan peli käyttämään Mt. Silverin virallista aloituspiste-ID:tä
+	ld a, SPAWN_MT_SILVER
 	ld [wDefaultSpawnpoint], a
 
 	ld a, MAPSETUP_WARP
 	ldh [hMapEntryMethod], a
 	jmp FinishContinueFunction
+
+.GiveSilentTeam:
+	ld hl, .TeamData
+.loop
+	ld a, [hli]
+	cp -1
+	ret z
+	ld [wCurPartySpecies], a
+	ld a, [hli]
+	ld [wCurPartyLevel], a
+	ld a, [hli]
+	push af
+	push hl
+	xor a
+	ld [wMonType], a
+	farcall TryAddMonToParty
+	ld a, [wPartyCount]
+	dec a
+	ld hl, wPartyMon1Item
+	call GetPartyLocation
+	pop de
+	pop af
+	ld [hl], a
+	ld h, d
+	ld l, e
+	jr .loop
+
+.TeamData:
+	db TYPHLOSION, 100, NO_ITEM
+	db MEGANIUM,   100, NO_ITEM
+	db FERALIGATR, 100, NO_ITEM
+	db PIDGEOT,    100, NO_ITEM
+	db TYRANITAR,  100, NO_ITEM
+	db LUGIA,      100, NO_ITEM
+	db -1
+
+.BlakeName:
+	db "BLAKE@"
 
 ResetWRAM_NotPlus:
 	xor a
@@ -171,7 +266,6 @@ ResetWRAM:
 	xor a
 	ld [wPartyCount], a
 	ld [wMonStatusFlags], a
-	inc a ; PLAYER_FEMALE
 	ld [wPlayerGender], a
 
 	ld hl, wNumItems

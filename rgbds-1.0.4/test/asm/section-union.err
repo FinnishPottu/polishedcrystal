@@ -1,0 +1,2 @@
+FATAL: Section "test" already declared as `SECTION UNION`
+    at section-union.asm(37)

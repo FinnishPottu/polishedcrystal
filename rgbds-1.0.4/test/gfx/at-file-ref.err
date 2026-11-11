@@ -1,0 +1,8 @@
+error: Failed to fit tile colors [GB:10,04,27; GB:21,26,31; GB:31,31,31] in specified palettes
+note: The following palettes were specified:
+      - [GB:23,27,23; GB:29,09,08; GB:06,13,16; GB:14,07,16]
+      - [GB:05,27,15; GB:19,21,13; GB:10,17,09; GB:16,05,20]
+      - [GB:03,30,20; GB:05,27,15; GB:19,21,13]
+      - [GB:23,27,23; GB:28,19,09; GB:06,13,16]
+      - [GB:28,19,09; GB:29,09,08; GB:14,07,16]
+Conversion aborted after 1 error
