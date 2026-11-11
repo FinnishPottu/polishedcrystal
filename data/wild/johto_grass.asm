@@ -1177,7 +1177,7 @@
 	end_grass_wildmons
 
 	def_grass_wildmons SILVER_CAVE_ROOM_1
-	db 6 percent ; encounter rate
+	db 0 percent ; encounter rate
 	; morn
 	wildmon 70, GOLBAT
 	wildmon 72, GRAVELER
@@ -1205,7 +1205,7 @@
 	end_grass_wildmons
 
 	def_grass_wildmons SILVER_CAVE_ROOM_2
-	db 6 percent ; encounter rate
+	db 0 percent ; encounter rate
 	; morn
 	wildmon 72, GOLBAT
 	wildmon 74, PARASECT
@@ -1233,7 +1233,7 @@
 	end_grass_wildmons
 
 	def_grass_wildmons SILVER_CAVE_ROOM_3
-	db 3 percent ; encounter rate
+	db 0 percent ; encounter rate
 	; morn
 	wildmon 74, CROBAT
 	wildmon 76, GOLEM

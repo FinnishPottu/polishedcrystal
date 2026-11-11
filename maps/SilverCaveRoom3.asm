@@ -5,7 +5,7 @@ SilverCaveRoom3_MapScriptHeader:
 	callback MAPCALLBACK_OBJECTS, SilverCaveRoom3DailyRedRematchCallback
 
 	def_warp_events
-	warp_event  7, 29, SILVER_CAVE_ROOM_2, 2
+	warp_event  7, 29, SILVER_CAVE_ROOM_2, 1
 
 	def_coord_events
 
